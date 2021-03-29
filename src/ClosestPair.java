@@ -35,8 +35,8 @@ public class ClosestPair {
     }
 
     // 두 점 사이의 거리 구하기
-    static double distance (Point p1, Point p2){
-        return Math.sqrt((p1.x-p2.x)*(p1.x-p2.x) + (p1.y-p2.y)*(p1.y-p2.y));
+    static double distance (Point p1, Point p2) {
+        return Math.sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));
     }
 
     // 모든 점들의 거리를 비교하여 가장 작은 값을 반환
@@ -45,29 +45,31 @@ public class ClosestPair {
         for(int i = start; i<end; i++){
             for(int j = i+1; j<=end; j++){
                 double d = distance(p.get(i), p.get(j));
-                if(min_dist == -1 || min_dist > d)
+                if(min_dist == -1 || min_dist > d) {
                     min_dist = d;
+                }
             }
         }
+
         return min_dist;
     }
 
     static double ClosestPairPoint(List<Point> p, int start, int end) {
         int n = end - start + 1;
 
-        if(n<=3) // n이 3이하면 BruteFore 함수 호출
+        if (n <= 3) // n이 3이하면 BruteFore 함수 호출
             return BruteForce(p, start, end);
 
-        int mid = (start + end) /2; // mid : 중간 인덱스
+        int mid = (start + end) / 2; // mid : 중간 인덱스
         double d_left = ClosestPairPoint(p, start, mid); // 왼쪽 분할 -> 가장 짧은 거리를 d_left 에 저장
         double d_right = ClosestPairPoint(p, mid + 1, end); // 오른쪽 분할 -> 가장 짧은 거리를 d_right 에 저장
         double result = min(d_left, d_right); // 오른쪽 영역과 왼쪽 영역 중 최소값을 result 에 저장
 
         // 가운데를 기준으로 result 거리 안에 있는 점들을 따로 저장
         List<Point> q = new ArrayList<>();
-        for(int i = start; i <= end; i++){
+        for (int i = start; i <= end; i++) {
             int a = p.get(mid).x - p.get(i).x;
-            if(a * a < result){
+            if (a * a < result * result) {
                 q.add(p.get(i));
             }
         }
@@ -76,15 +78,15 @@ public class ClosestPair {
         q.sort(new sort_y());
 
         // y를 기준으로 가장 짧은 거리 구하기
-        for(int i = 0; i<q.size()-1; i++){
-            for(int j = i+1; j<q.size(); j++){
+        for (int i = 0; i < q.size() - 1; i++) {
+            for (int j = i + 1; j < q.size(); j++) {
                 int a = q.get(j).y - q.get(i).y;
-                if(a * a< result){
+                if (a * a < result * result) {
                     result = min(result, distance(q.get(i), q.get(j)));
-                }
-                else break; //result 보다 거리가 크면 반복문 종료
+                } else break; //result 보다 거리가 크면 반복문 종료
             }
         }
+
         return result;
     }
 
