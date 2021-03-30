@@ -4,7 +4,7 @@
 
 ## 방법 1.
 n개의 모든 점쌍들의 거리를 비교하여 가장 짧은 점쌍을 찾는다.
-이 방법은 시간복잡도가 **O(n^2)**로 n이 커질수록 많은 시간이 소요된다.   
+이 방법은 시간복잡도가 O(n^2)로 n이 커질수록 많은 시간이 소요된다.   
 ( 점 두개를 고르는 방법 : n(n-1)/2 )
 
 ## 방법 2.
@@ -30,10 +30,10 @@ n개의 모든 점쌍들의 거리를 비교하여 가장 짧은 점쌍을 찾�
 (점이 3개 이하일 때는 방법 1을 사용하여 예외 처리를 한다. -> 분할할 수 없으므로)   
 
 ### 시간복잡도
-1. x좌표로 정렬 : 0(nlogn)
+1. x좌표로 정렬 : O(nlogn)
 2. 점의 개수가 3개 이하일 경우 : O(1)
 3. 정렬된 배열을 분할 : O(1)
-4. y좌표로 정렬 : 0(nlogn)
+4. y좌표로 정렬 : O(nlogn)
 5. 각 점에서 주변점들 사이의 거리 계산 : O(1)
 6. 3개의 점의 쌍 중 가장 짧은 거리를 리턴 : O(1)
 
@@ -70,22 +70,22 @@ System.out.println(count); // 메인에서 출력
 // count 증가시키기
 for(int i = start; i<end; i++){
             for(int j = i+1; j<=end; j++){
-                count ++;
                 double d = distance(p.get(i), p.get(j));
                 if(min_dist == -1 || min_dist > d) {
-                    count ++;
                     min_dist = d;
+                    count++;
                 }
+                count++;
             }
         }
 for (int i = 0; i < q.size() - 1; i++) {
             for (int j = i + 1; j < q.size(); j++) {
                 int a = q.get(j).y - q.get(i).y;
-                count ++;
                 if (a * a < result * result) {
-                    count ++;
                     result = min(result, distance(q.get(i), q.get(j)));
-                } else break; // result 보다 거리가 크면 반복문 종료
+                    count++;
+                } else break; //result 보다 거리가 크면 반복문 종료
+                count++;
             }
         }
 ```
@@ -109,9 +109,9 @@ for (int i = 0; i < q.size() - 1; i++) {
 #### <bound : 10000>   
      점의 개수     |     비교 횟수
         10                   29
-        100                  44
-        1000                 52
-        10000                71
+        100                  383
+        1000                 4878
+        10000                58393
 
 ![capture](https://postfiles.pstatic.net/MjAyMTAzMjlfMjcg/MDAxNjE3MDE4ODQ3NTE0.cXQsovNh3s75rS1ImdlYX9IOpIDXJ1wOfqn_AZlDM-Qg.SfVvOf48BrCc6-FbisW2W0XhpYDGIAFt7hISP0JBiYYg.PNG.hongsubakgame/image.png?type=w966)
 
