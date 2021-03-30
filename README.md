@@ -53,14 +53,14 @@ public static void main(String[] args) { }
 private static class sort_x implements Comparator<Point> { }
 public static class sort_y implements Comparator<Point> { }
 ```
-- 메인 함수와 전체적인 틀 짜기, 정렬, distance와 min 구현
+-> 메인 함수와 전체적인 틀 짜기, 정렬, distance와 min 구현
 
 ```java
 //수정
 public static double BruteForce(List<Point> p, int start, int end) { }
 static double ClosestPairPoint(List<Point> p, int start, int end) { }
 ```
-- burteforce와 closestpairpoint 구현
+-> burteforce와 closestpairpoint 구현
 
 ## 입력 개수에 따른 비교 횟수
 * 전역 변수 count를 증가시키면서 비교횟수 저장
@@ -90,31 +90,34 @@ for (int i = 0; i < q.size() - 1; i++) {
         }
 ```
 ### - 입력 개수를 5개씩 늘렸을 때
-#### <bound : 100>   
-     점의 개수     |     비교 횟수
-         5                  11
-        10                  27
-        15                  44
-        20                  52
-        25                  71
-        30                  100
-        35                  104
-        40                  127
-        45                  130
-        50                  165
+#### <bound : 100> 
+* **BruteForce 함수일 때**   
+점의 개수 = [5 10 15 20 25 30 35 40 45 50]   
+비교 횟수 = [11 49 114 192 307 441 601 785 993 1229]
 
-![capture](https://postfiles.pstatic.net/MjAyMTAzMjlfNCAg/MDAxNjE3MDE4NzU4NDY1.vmix5Aexjxia4Z5eS4dNaMnhVkNUAaotKcNYYVeczRMg.4RvR-bSiqdVOx_d1y3M_Vd3MWQZ1U73KCRgW3gsMij0g.PNG.hongsubakgame/capture.png?type=w966)
+* **ClosestPairPoint 함수일 때**   
+점의 개수 = [5 10 15 20 25 30 35 40 45 50]   
+비교 횟수 = [11 27 44 52 71 100 104 127 130 165]
+
+![graph](https://postfiles.pstatic.net/MjAyMTAzMzBfMjk2/MDAxNjE3MDg1MTg5NDMz.1XMwsHSaGQO-XVfoAoB3mgpstPfNG1hS90BqZM4HmXUg.DOvyz_vSomxFgwCE0wG41uOblMWLmXPm6E73kmuON_4g.PNG.hongsubakgame/image.png?type=w966)
+- 검정 : BruteForce   
+- 빨강 : ClosestPairPoint
 
 ### - 입력 개수를 10배씩 늘렸을 때
 #### <bound : 10000>   
-     점의 개수     |     비교 횟수
-        10                   29
-        100                  383
-        1000                 4878
-        10000                58393
+* **BruteForce 함수일 때**   
+점의 개수 = [10 100 1000 10000]   
+비교 횟수 = [47 4951 499513 49995010]
 
-![capture](https://postfiles.pstatic.net/MjAyMTAzMjlfMjcg/MDAxNjE3MDE4ODQ3NTE0.cXQsovNh3s75rS1ImdlYX9IOpIDXJ1wOfqn_AZlDM-Qg.SfVvOf48BrCc6-FbisW2W0XhpYDGIAFt7hISP0JBiYYg.PNG.hongsubakgame/image.png?type=w966)
+* **ClosestPairPoint 함수일 때**  
+점의 개수 = [10 100 1000 10000]   
+비교 횟수 = [29 383 4847 58393]
 
+![graph2](https://postfiles.pstatic.net/MjAyMTAzMzBfOTAg/MDAxNjE3MDg1MTkyNzI2.9aH0eYSG3jJ1-Mkbclu3Aa66Rgo1YrO8JGuYjkgrQScg.FRxmvEdCYRqcfHXEJw-Qpy35esv_o7ELqwMeHntrENQg.PNG.hongsubakgame/image.png?type=w966)
+- 검정 : BruteForce   
+- 빨강 : ClosestPairPoint
 ### 결론
-입력개수가 늘어나도 비교횟수가 기하급수적으로 늘어나지는 않았다.
+ClosestPairPoint함수일 때는 입력개수가 늘어나도 비교횟수가 기하급수적으로 늘어나지는 않았다.
 이는 분할 정복을 이용하여 O(n^2)의 시간복잡도가 O(n(log^2)n)으로 줄어들었기 때문이다.
+반면, 시간복잡도가 O(n^2)인 BruteForce함수는 입력개수가 늘어날 수록 급속하게 비교횟수가 늘어났다.
+ClosestPairPoint함수와 BruteForce함수를 비교해보면 분할정복으로 구현한 ClosestPairPoint함수의 성능이 훨씬 좋다는 것을 알 수 있었다.
